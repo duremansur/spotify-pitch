@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dure Mansur - Spotify Pitch Deck</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, #1DB954 0%, #191414 100%);
+            color: white;
+            overflow-x: hidden;
+        }
+
+        .slide {
+            min-height: 100vh;
+            padding: 60px 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            opacity: 0;
+            transform: translateY(50px);
+            animation: slideIn 0.8s ease-out forwards;
+        }
+
+        @keyframes slideIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .slide:nth-child(even) {
+            background: linear-gradient(135deg, #191414 0%, #1DB954 100%);
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #1DB954, #ffffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: #1DB954;
+        }
+
+        h3 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #ffffff;
+        }
+
+        p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            opacity: 0.9;
+        }
+
+        .highlight {
+            color: #1DB954;
+            font-weight: 600;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+            max-width: 1000px;
+            width: 100%;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(29, 185, 84, 0.3);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #1DB954;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            opacity: 0.8;
+            margin-top: 0.5rem;
+        }
+
+        .quick-wins {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        .win-card {
+            background: rgba(25, 20, 20, 0.8);
+            border-radius: 12px;
+            padding: 1.5rem;
+            border-left: 4px solid #1DB954;
+            text-align: left;
+            transition: transform 0.3s ease;
+        }
+
+        .win-card:hover {
+            transform: translateX(10px);
+        }
+
+        .win-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #1DB954;
+            margin-bottom: 0.5rem;
+        }
+
+        .win-description {
+            font-size: 1rem;
+            line-height: 1.5;
+            opacity: 0.9;
+        }
+
+        .game-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+            max-width: 1000px;
+            width: 100%;
+        }
+
+        .game-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 1.5rem;
+            border: 1px solid rgba(29, 185, 84, 0.3);
+            transition: all 0.3s ease;
+            text-align: left;
+        }
+
+        .game-card:hover {
+            border-color: #1DB954;
+            box-shadow: 0 15px 30px rgba(29, 185, 84, 0.2);
+        }
+
+        .game-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #1DB954;
+            margin-bottom: 0.8rem;
+        }
+
+        .game-description {
+            font-size: 1rem;
+            line-height: 1.4;
+            opacity: 0.8;
+            margin-bottom: 0.8rem;
+        }
+
+        .game-mechanics {
+            font-size: 0.9rem;
+            opacity: 0.7;
+            font-style: italic;
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 1000;
+        }
+
+        .nav-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .nav-dot.active {
+            background: #1DB954;
+            transform: scale(1.2);
+        }
+
+        .cta-button {
+            background: linear-gradient(45deg, #1DB954, #1ed760);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 2rem;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(29, 185, 84, 0.3);
+        }
+
+        .spotify-logo {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            opacity: 0.7;
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            h2 { font-size: 2rem; }
+            p { font-size: 1.1rem; }
+            .slide { padding: 40px 20px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Slide 1: Title -->
+    <div class="slide">
+        <div class="spotify-logo">🎵 ♪ ♫</div>
+        <h1>Hey Spotify!</h1>
+        <p>I'm <span class="highlight">Dure Mansur</span>, a product manager who builds experiences that bring people together.</p>
+        <p>Here's why I want to join your product team in Toronto.</p>
+        <button class="cta-button" onclick="nextSlide()">Let me share my story →</button>
+    </div>
+
+    <!-- Slide 2: Personal Connection -->
+    <div class="slide">
+        <h2>Music Is My Language of Connection</h2>
+        <p>Growing up, evenings at home meant my father's collection of Indian classics filling the house. Kishore Kumar's voice would echo through the rooms, and somehow these melodies became our family's shared vocabulary.</p>
+        
+        <p>Later, my sisters and I discovered a different kind of musical bonding. We'd take turns controlling our Alexa, each playing songs from our playlists. During car rides, we'd create these spontaneous listening sessions where everyone contributed one track. <span class="highlight">These moments taught me that music isn't just entertainment, it's how we share pieces of ourselves</span>.</p>
+        
+        <p>As a product manager, I've always been drawn to building things that create these kinds of connections. Every feature needs to serve a human need, every workflow should feel natural, and every user interaction should add value to someone's day.</p>
+    </div>
+
+    <!-- Slide 3: My Impact in Numbers -->
+    <div class="slide">
+        <h2>The Work That Energized Me</h2>
+        <div class="stats-grid">
+            <div class="stat-card">
+                <span class="stat-number">$15.6M</span>
+                <div class="stat-label">Monthly transaction volume optimized</div>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">25,000</span>
+                <div class="stat-label">Merchants whose daily operations I improved</div>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">$970K</span>
+                <div class="stat-label">Annual savings through product improvements</div>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">300%</span>
+                <div class="stat-label">Growth in user engagement I drove</div>
+            </div>
+        </div>
+        <p>At Bank Alfalah, I spent time deeply immersed in product challenges that genuinely excited me. Rolling out QR payments across 25,000 terminals meant solving complex technical problems while keeping the user experience simple. Launching the donation feature integrated with NGO partnerships and building discount management systems required balancing multiple stakeholder needs. Building dashboards wasn't just about displaying data, it was about telling stories that helped teams make better decisions.</p>
+        
+        <p><span class="highlight">Every number represents real people whose day got a little easier through thoughtful product work</span>.</p>
+    </div>
+
+    <!-- Slide 4: Quick Wins -->
+    <div class="slide">
+        <h2>What I Can Contribute</h2>
+        <p>In my first 90 days, I want to understand your product challenges and start adding value:</p>
+        
+        <div class="quick-wins">
+            <div class="win-card">
+                <div class="win-title">🏗️ Product Strategy & Execution</div>
+                <div class="win-description">I'll work closely with your teams to understand current workflows and identify opportunities to strengthen product development processes and cross-functional alignment.</div>
+            </div>
+            
+            <div class="win-card">
+                <div class="win-title">📊 Data-Informed Decision Making</div>
+                <div class="win-description">My experience building analytics dashboards and tracking meaningful metrics means I can help translate complex data into clear product insights and actionable next steps.</div>
+            </div>
+            
+            <div class="win-card">
+                <div class="win-title">🎯 User-Centered Product Development</div>
+                <div class="win-description">Every feature I've shipped starts with understanding user needs. I'll bring fresh perspective on making internal tools as intuitive and delightful as consumer-facing products.</div>
+            </div>
+            
+            <div class="win-card">
+                <div class="win-title">🚀 Innovation & Problem Solving</div>
+                <div class="win-description">I excel at identifying opportunities others might miss and turning creative concepts into shipped products that deliver real value to users and the business.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 5: Product Vision -->
+    <div class="slide">
+        <h2>A Product Idea Close to My Heart</h2>
+        <p>Those music sharing moments with my family inspired something I've been thinking about. What if Spotify could create that same magic of musical discovery and connection for everyone?</p>
+        
+        <div class="game-grid">
+            <div class="game-card">
+                <div class="game-title">🎤 Karaoke Battles</div>
+                <div class="game-description">Real-time singing competitions with live scoring and social sharing. Friends can join remotely or in person, with different difficulty modes based on song complexity.</div>
+                <div class="game-mechanics">Uses audio recognition for scoring, integrates with social features, supports group video calls</div>
+            </div>
+            
+            <div class="game-card">
+                <div class="game-title">🎲 Genre Roulette</div>
+                <div class="game-description">A spinning wheel lands on genres, decades, or moods. Players compete to queue the best matching track from their libraries, with community voting on winners.</div>
+                <div class="game-mechanics">Leverages Spotify's genre classification, creates temporary shared queues, includes timer-based challenges</div>
+            </div>
+            
+            <div class="game-card">
+                <div class="game-title">🎭 Playlist Detective</div>
+                <div class="game-description">One person's playlist plays anonymously while others guess the owner. Points for correct guesses, bonus rounds for explaining song choices.</div>
+                <div class="game-mechanics">Anonymizes playlist metadata, tracks guessing accuracy, includes friend-only and public modes</div>
+            </div>
+            
+            <div class="game-card">
+                <div class="game-title">⚡ Lyric Lightning</div>
+                <div class="game-description">Fast-paced rounds where fragments of lyrics are displayed, and players race to identify the song. Difficulty scales with obscurity and genre diversity.</div>
+                <div class="game-mechanics">Draws from Spotify's lyrics database, adjustable difficulty settings, supports tournament brackets</div>
+            </div>
+        </div>
+        
+        <p>This concept represents how thoughtful product design can transform individual music consumption into shared social experiences, just like those car rides with my sisters.</p>
+    </div>
+
+    <!-- Slide 6: Why Me -->
+    <div class="slide">
+        <h2>Why I Belong at Spotify</h2>
+        
+        <h3>🎯 I Build Products People Actually Use</h3>
+        <p>At Bank Alfalah, I obsessed over user workflows and interface design. I redesigned payment terminals to reduce transaction errors and spent months perfecting QR payment flows. Every feature launch was measured by user adoption and satisfaction, not just technical completion.</p>
+        
+        <h3>🧠 I Connect Systems and Stories</h3>
+        <p>My background spans product strategy, user experience, and data analytics. I can read the numbers that show user behavior, but I also understand the human motivations behind those patterns. This helps me design features that serve real needs, not just theoretical use cases.</p>
+        
+        <h3>🌱 I'm Committed to Growth</h3>
+        <p>Currently pursuing Google UX Design and Business Intelligence certifications to deepen my skills in design thinking and data analysis. I believe the best product managers stay curious and keep evolving with new tools and methodologies.</p>
+        
+        <h3>❤️ I Lead Through Collaboration</h3>
+        <p>I believe great products come from great teams. My leadership style focuses on creating space for others to excel, asking thoughtful questions, and building consensus around shared goals. The best ideas can come from anywhere.</p>
+    </div>
+
+    <!-- Slide 7: My Vision -->
+    <div class="slide">
+        <h2>What We Could Build Together</h2>
+        <p>I envision Spotify's internal tools feeling as intuitive and delightful as the consumer app itself.</p>
+        
+        <p><span class="highlight">Data platforms that tell compelling stories</span>, helping product teams understand user behavior and make confident decisions.</p>
+        
+        <p><span class="highlight">Development workflows that enhance creativity</span> rather than constrain it, making it easier for teams to ship features that users genuinely love.</p>
+        
+        <p>Most importantly, a product culture where every decision starts with empathy for the millions of people who rely on Spotify for the soundtrack to their lives.</p>
+    </div>
+
+    <!-- Slide 8: Call to Action -->
+    <div class="slide">
+        <h2>Let's Create Something Meaningful Together</h2>
+        <p>I'm looking for more than just my next role. I want to be part of a team that's building the future of how people discover and share music.</p>
+        
+        <p>Spotify represents something powerful to me. It's where my father's classical Indian music can coexist with my sister's indie discoveries. <span class="highlight">It's proof that technology can preserve cultural connections while creating new ones</span>.</p>
+        
+        <p>I want to help you build products that strengthen these connections, tools that empower your teams, and experiences that make music even more central to how people relate to each other.</p>
+        
+        <div style="margin-top: 2rem;">
+            <p><strong>Dure Mansur</strong></p>
+            <p>📧 duremansur02@gmail.com</p>
+            <p>📱 (647) 655-6962</p>
+            <p>📍 Vaughan, ON (ready for Toronto!)</p>
+        </div>
+        
+        <button class="cta-button">Let's start the conversation 🎵</button>
+    </div>
+
+    <!-- Navigation -->
+    <div class="navigation">
+        <div class="nav-dot active" data-slide="0"></div>
+        <div class="nav-dot" data-slide="1"></div>
+        <div class="nav-dot" data-slide="2"></div>
+        <div class="nav-dot" data-slide="3"></div>
+        <div class="nav-dot" data-slide="4"></div>
+        <div class="nav-dot" data-slide="5"></div>
+        <div class="nav-dot" data-slide="6"></div>
+        <div class="nav-dot" data-slide="7"></div>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const navDots = document.querySelectorAll('.nav-dot');
+
+        function showSlide(index) {
+            // Hide all slides
+            slides.forEach(slide => {
+                slide.style.display = 'none';
+            });
+            
+            // Show current slide
+            slides[index].style.display = 'flex';
+            
+            // Update navigation
+            navDots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === index);
+            });
+            
+            currentSlide = index;
+        }
+
+        function nextSlide() {
+            const next = (currentSlide + 1) % slides.length;
+            showSlide(next);
+        }
+
+        function prevSlide() {
+            const prev = (currentSlide - 1 + slides.length) % slides.length;
+            showSlide(prev);
+        }
+
+        // Initialize
+        showSlide(0);
+
+        // Navigation dot clicks
+        navDots.forEach((dot, index) => {
+            dot.addEventListener('click', () => showSlide(index));
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                prevSlide();
+            }
+        });
+
+        // Auto-advance timer (optional)
+        let autoAdvance = setInterval(() => {
+            // Uncomment the line below for auto-advance
+            // nextSlide();
+        }, 10000);
+
+        // Pause auto-advance on interaction
+        document.addEventListener('click', () => {
+            clearInterval(autoAdvance);
+        });
+    </script>
+</body>
+</html>
